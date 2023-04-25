@@ -37,10 +37,12 @@ class BreedDialog extends React.Component {
     }
 
     handleTxSend = () => {
-        const { PepeBase, motherPepe, fatherPepe, hasWeb3} = this.props;
+        //const { PepeBase, motherPepe, fatherPepe, hasWeb3} = this.props;
+        const { PepeReborn, motherPepe, fatherPepe, hasWeb3} = this.props;
 
         if (hasWeb3) {
-            const {txID, thunk} = PepeBase.methods.cozyTime.trackedSend(
+            //const {txID, thunk} = PepeBase.methods.cozyTime.trackedSend(
+            const {txID, thunk} = PepeReborn.methods.cozyTime.trackedSend(
                 {from: motherPepe.master}, motherPepe.pepeId, fatherPepe.pepeId, motherPepe.master
             );
 
@@ -164,5 +166,6 @@ const styledBreedDialog = withStyles(styles)(BreedDialog);
 
 export default connect(state => ({
     hasWeb3: state.web3.hasWeb3,
-    PepeBase: state.redapp.contracts.PepeBase
+    //PepeBase: state.redapp.contracts.PepeBase
+    PepeReborn: state.redapp.contracts.PepeReborn
 }))(styledBreedDialog);

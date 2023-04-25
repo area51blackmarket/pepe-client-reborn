@@ -7,7 +7,8 @@ import {
 } from "@material-ui/core";
 import { connect } from 'react-redux';
 import TxDialog from "./TxDialog";
-import {cozyAddr, saleAddr} from "../../../web3Settings";
+//import {cozyAddr, saleAddr} from "../../../web3Settings";
+import {cozyRebornAddr, saleRebornAddr} from "../../../web3Settings";
 
 const styles = (theme) => ({
 
@@ -91,11 +92,11 @@ const styledSavePepeDialog = withStyles(styles)(SavePepeDialog);
 
 export default connect((state, props) => {
     const auctionContract = props.auctionType === "sale"
-        ? state.redapp.contracts.PepeAuctionSale
-        : state.redapp.contracts.CozyTimeAuction;
+        ? state.redapp.contracts.RebornPepeAuctionSale
+        : state.redapp.contracts.RebornCozyTimeAuction;
     const auctionAddr = props.auctionType === "sale"
-        ? saleAddr
-        : cozyAddr;
+        ? saleRebornAddr
+        : cozyRebornAddr;
     return ({
             hasWeb3: state.web3.hasWeb3,
             auctionContract: auctionContract,

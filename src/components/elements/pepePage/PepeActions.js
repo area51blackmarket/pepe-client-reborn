@@ -42,8 +42,8 @@ class PepeActions extends React.Component {
         const { classes, pepe, hasWeb3, wallet } = this.props;
 
         // Check explicitly, "false" doesn't count.
-        const nameable = pepe.name === null || pepe.name === undefined || pepe.name === "";
-
+        //const nameable = pepe.name === null || pepe.name === undefined || pepe.name === "";
+        const nameable = !pepe.named;
 
         // Check if the pepe is being auctioned, and format the prices if so.
         const isInCozyAuction = !!pepe.cozy_auction;

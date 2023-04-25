@@ -147,6 +147,8 @@ class Breeder extends React.Component {
         const {classes, openDrawer} = this.props;
 
         const {motherPepe, fatherPepe, isLoadingFather, isLoadingMother, errorMother, errorFather} = this.state;
+        if(!!motherPepe) motherPepe.pepeId += "";
+        if(!!fatherPepe) fatherPepe.pepeId += "";
 
         return (
             <Drawer anchor="bottom" open={openDrawer}
@@ -218,4 +220,3 @@ const ConnectedBreeder = connect(state => ({
 
 
 export default ConnectedBreeder;
-

@@ -157,7 +157,7 @@ class Header extends React.Component {
                         <div>
                             <Typography variant="title" color="inherit">
                                 <Link className={AppStyle.noDeco} to="/">
-                                    CryptoPepes.io
+                                    CryptoPepes.lol
                                 </Link>
                             </Typography>
                         </div>
@@ -256,6 +256,14 @@ class Header extends React.Component {
                                 onClose={this.handleMinerClose}
                             >
                                 <List component="nav">
+                                    <Link to='/mine-pepe' className={AppStyle.noDeco}>
+                                        <ListItem button>
+                                            <ListItemIcon>
+                                                <Pickaxe />
+                                            </ListItemIcon>
+                                            <ListItemText primary="Mine Pepe" />
+                                        </ListItem>
+                                    </Link>
                                     <Link to='/mining-stats' className={AppStyle.noDeco}>
                                         <ListItem button>
                                             <ListItemIcon>
@@ -371,6 +379,14 @@ class Header extends React.Component {
                                         <Divider />
                                     </Hidden>
 
+                                    <Link to='/mine-pepe' className={AppStyle.noDeco}>
+                                        <ListItem button>
+                                            <ListItemIcon>
+                                                <Pickaxe />
+                                            </ListItemIcon>
+                                            <ListItemText primary="Mine Pepe" />
+                                        </ListItem>
+                                    </Link>
                                     <Link to='/mining-stats' className={AppStyle.noDeco}>
                                         <ListItem button>
                                             <ListItemIcon>

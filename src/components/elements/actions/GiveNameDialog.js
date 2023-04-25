@@ -61,11 +61,13 @@ class GiveNameDialog extends React.Component {
 
 
     handleTxSend = () => {
-        const { PepeBase, hasWeb3, pepe } = this.props;
+        //const { PepeBase, hasWeb3, pepe } = this.props;
+        const { PepeReborn, hasWeb3, pepe } = this.props;
 
         if (hasWeb3 && this.state.validPepeName) {
 
-            const {txID, thunk} = PepeBase.methods.setPepeName.trackedSend(
+            //const {txID, thunk} = PepeBase.methods.setPepeName.trackedSend(
+            const {txID, thunk} = PepeReborn.methods.setPepeName.trackedSend(
                 {from: pepe.master}, pepe.pepeId, this.state.pepeNameHexStr);
 
             this.setState({
@@ -128,5 +130,6 @@ const styledGiveNameDialog = withStyles(styles)(GiveNameDialog);
 
 export default connect(state => ({
     hasWeb3: state.web3.hasWeb3,
-    PepeBase: state.redapp.contracts.PepeBase
+    //PepeBase: state.redapp.contracts.PepeBase
+    PepeReborn: state.redapp.contracts.PepeReborn
 }))(styledGiveNameDialog);

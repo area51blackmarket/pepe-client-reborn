@@ -64,13 +64,13 @@ class Explorer extends Component {
         let q = this.getQuery();
         const qId = q.toURLParamStr();
 
-        console.log(this.props);
+        //console.log(this.props);
 
         history.pushState({}, "", this.props.location.pathname + qId);
 
         this.setState({queryId: qId});
 
-        console.log("Reloaded grid because of a query change!")
+        //console.log("Reloaded grid because of a query change!")
     };
 
     render() {

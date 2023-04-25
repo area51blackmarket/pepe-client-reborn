@@ -20,13 +20,15 @@ class PepePicture extends React.Component {
 
     render() {
         const {pepeId, classes} = this.props;
-
+        
         return (
             <div className={classes.root}>
-                {pepeId &&
-                <img className={classes.media}
-                     src={PepeAPI.getPepeSvgSrc(pepeId)}
-                     title={"Pepe #" + pepeId}/>
+                {
+                  pepeId === undefined
+                  ? null
+                  : <img className={classes.media}
+                      src={PepeAPI.getPepeSvgSrc(pepeId)}
+                      title={"Pepe #" + pepeId}/>
                 }
             </div>
         );

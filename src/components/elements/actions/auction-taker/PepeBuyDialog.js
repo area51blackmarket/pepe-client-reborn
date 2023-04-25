@@ -16,8 +16,8 @@ import {getDefaultAccount} from "../../../../util/web3AccountsUtil";
 import PepeGridItem from "../../grid/PepeGridItem";
 import {withStyles} from "@material-ui/core/styles/index";
 import TxDialog from "../TxDialog";
-import {saleAddr} from "../../../../web3Settings";
-
+//import {saleAddr} from "../../../../web3Settings";
+import {saleRebornAddr} from "../../../../web3Settings";
 
 const styles = (theme) => ({
     auctionChart: {
@@ -172,7 +172,7 @@ const styledSaleBuyDialog = withStyles(styles)(PepeBuyDialogInner);
 const PepeBuyDialog = connect(state => ({
     hasWeb3: state.web3.hasWeb3,
     wallet: state.redapp.tracking.accounts.wallet,
-    auctionAddress: saleAddr,
+    auctionAddress: saleRebornAddr,
     auctionContract: state.redapp.contracts.PepeAuctionSale,
     affiliate: state.affiliate.affiliate,
 }))(styledSaleBuyDialog);

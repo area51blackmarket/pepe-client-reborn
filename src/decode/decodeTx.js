@@ -1,8 +1,13 @@
 
-import {cpepAddr, cozyAddr, saleAddr} from "../web3Settings";
+//import {cpepAddr, cozyAddr, saleAddr} from "../web3Settings";
+import {cpepAddr, /*cozyAddr, saleAddr,*/ cpepRebornAddr, cozyRebornAddr, saleRebornAddr, genesisAddr} from "../web3Settings";
 import CPEP_abi from '../abi/CPEP_abi.json';
-import sale_abi from '../abi/sale_abi.json';
-import cozy_abi from '../abi/cozy_abi.json';
+//import sale_abi from '../abi/sale_abi.json';
+//import cozy_abi from '../abi/cozy_abi.json';
+import CPRE_abi from '../abi/CPRE_abi.json';
+import reborn_sale_abi from '../abi/reborn_sale_abi.json';
+import reborn_cozy_abi from '../abi/reborn_cozy_abi.json';
+import genesis_abi from '../abi/genesis_abi.json';
 
 function decodeTxInput(input, contractABI) {
 
@@ -114,7 +119,7 @@ function decodeCPEPTx(txReceipt) {
         return null;
     }
 }
-
+/*
 function decodeCozyTx(txReceipt) {
     const fromAddr = txReceipt.from;
     const input = txReceipt.input;
@@ -210,6 +215,203 @@ function decodeSaleTx(txReceipt) {
         return null;
     }
 }
+*/
+function decodeCPRETx(txReceipt) {
+    const fromAddr = txReceipt.from;
+    const input = txReceipt.input;
+    try {
+        const decoded = decodeTxInput(input, CPRE_abi);
+        if (decoded === null) return null;
+        switch (decoded.name) {
+            case "transfer": return {
+                type: 'transfer',
+                from: fromAddr,
+                to: decoded.params['_to'],
+                pepeId: decoded.params['pepeId']
+            };
+            case "cozyTime": return {
+                type: 'breed',
+                from: fromAddr,
+                to: decoded.params['_pepeReceiver'],
+                motherPepeId: decoded.params['_mother'],
+                fatherPepeId: decoded.params['_father']
+            };
+            case "setPepeName": return {
+                type: 'namePepe',
+                from: fromAddr,
+                pepeId: decoded.params['pepeId'],
+                nameHex: decoded.params['_name']
+            };
+            case "claimUsername": return {
+                type: 'claimUsername',
+                from: fromAddr,
+                nameHex: decoded.params['_username']
+            };
+            case "transferAndAuction": return {
+                type: (decoded.params['_auction'] === saleRebornAddr) ? 'startSaleAuction' : 'startCozyAuction',
+                from: fromAddr,
+                pepeId: decoded.params['pepeId'],
+                beginPrice: decoded.params['_beginPrice'],
+                endPrice: decoded.params['_endPrice'],
+                startBlock: txReceipt['blockNumber'],
+                duration: decoded.params['_duration']
+            };
+            case "approveAndBuy": return {
+                type: (decoded.params['_auction'] === saleRebornAddr) ? 'buyPepe' : 'buyCozy',
+                from: fromAddr,
+                pepeId: decoded.params['pepeId'],
+                bidPrice: txReceipt['value'],
+                cozyCandidate: decoded.params['_cozyCandidate'],
+                candidateAsFather: decoded.params['_candidateAsFather'],
+                pepeReceiver: fromAddr,
+                affiliate: null
+            };
+            case "approveAndBuyAffiliated": return {
+                type: (decoded.params['_auction'] === saleRebornAddr) ? 'buyPepe' : 'buyCozy',
+                from: fromAddr,
+                pepeId: decoded.params['pepeId'],
+                bidPrice: txReceipt['value'],
+                cozyCandidate: decoded.params['_cozyCandidate'],
+                candidateAsFather: decoded.params['_candidateAsFather'],
+                pepeReceiver: fromAddr,
+                affiliate: decoded.params['_affiliate']
+            };
+            case "approve": return {
+                type: 'approve',
+                from: fromAddr,
+                to: decoded.params['_to'],
+                pepeId: decoded.params['pepeId']
+            };
+            case "checkResurrected": return {
+              type: 'resurrection',
+              from: fromAddr,
+              pepeId: decoded.params['pepeId']
+            }
+            default: return null;
+        }
+    } catch (e) {
+        console.log("Could not decode CPRE tx.", e);
+        return null;
+    }
+}
+
+function decodeCozyRebornTx(txReceipt) {
+    const fromAddr = txReceipt.from;
+    const input = txReceipt.input;
+    try {
+        const decoded = decodeTxInput(input, reborn_cozy_abi);
+        if (decoded === null) return null;
+        switch (decoded.name) {
+            case "buyCozy": return {
+                type: 'buyCozy',
+                from: fromAddr,
+                pepeId: decoded.params['_pepeId'],
+                bidPrice: txReceipt['value'],
+                cozyCandidate: decoded.params['_cozyCandidate'],
+                candidateAsFather: decoded.params['_candidateAsFather'],
+                pepeReceiver: decoded.params['_pepeReceiver'],
+                affiliate: null
+            };
+            case "buyCozyAffiliated": return {
+                type: 'buyCozy',
+                from: fromAddr,
+                pepeId: decoded.params['_pepeId'],
+                bidPrice: txReceipt['value'],
+                cozyCandidate: decoded.params['_cozyCandidate'],
+                candidateAsFather: decoded.params['_candidateAsFather'],
+                pepeReceiver: decoded.params['_pepeReceiver'],
+                affiliate: decoded.params['_affiliate']
+            };
+            case "startAuction": return {
+                type: 'startCozyAuction',
+                auctionType: 'cozy',
+                from: fromAddr,
+                pepeId: decoded.params['_pepeId'],
+                beginPrice: decoded.params['_beginPrice'],
+                endPrice: decoded.params['_endPrice'],
+                startBlock: txReceipt['blockNumber'],
+                duration: decoded.params['_duration']
+            };
+            case "savePepe": return {
+                type: 'savePepe',
+                auctionType: 'cozy',
+                from: fromAddr,
+                pepeId: decoded.params['_pepeId'],
+            };
+            default: return null;
+        }
+    } catch (e) {
+        console.log("Could not decode Cozy Auction tx.", e);
+        return null;
+    }
+}
+
+function decodeSaleRebornTx(txReceipt) {
+    const fromAddr = txReceipt.from;
+    const input = txReceipt.input;
+    try {
+        const decoded = decodeTxInput(input, reborn_sale_abi);
+        if (decoded === null) return null;
+        switch (decoded.name) {
+            case "buyPepe": return {
+                type: 'buyPepe',
+                from: fromAddr,
+                pepeId: decoded.params['_pepeId'],
+                bidPrice: txReceipt['value'],
+                affiliate: null
+            };
+            case "buyPepeAffiliated": return {
+                type: 'buyPepe',
+                from: fromAddr,
+                pepeId: decoded.params['_pepeId'],
+                bidPrice: txReceipt['value'],
+                affiliate: decoded.params['_affiliate']
+            };
+            case "startAuction": return {
+                type: 'startSaleAuction',
+                auctionType: 'sale',
+                from: fromAddr,
+                pepeId: decoded.params['_pepeId'],
+                beginPrice: decoded.params['_beginPrice'],
+                endPrice: decoded.params['_endPrice'],
+                startBlock: txReceipt['blockNumber'],
+                duration: decoded.params['_duration'],
+            };
+            case "savePepe": return {
+                type: 'savePepe',
+                auctionType: 'sale',
+                from: fromAddr,
+                pepeId: decoded.params['_pepeId']
+            };
+            default: return null;
+        }
+    } catch (e) {
+        console.log("Could not decode Sale Auction tx.", e);
+        return null;
+    }
+}
+
+function decodeGenesisTx(txReceipt) {
+    console.log("decodeGenesisTx")
+    console.log(txReceipt)
+    const fromAddr = txReceipt.from;
+    const input = txReceipt.input;
+    try {
+        const decoded = decodeTxInput(input, genesis_abi);
+        if (decoded === null) return null;
+        switch (decoded.name) {
+            case "birth": return {
+                type: 'birth',
+                from: fromAddr,
+                amount: decoded.params['amount']
+            };
+            default: return null;
+        }
+    } catch (e) {
+        console.log("Could not decode Genesis tx.", e);
+        return null;
+    }
+}
 
 function decodeTx(txReceipt) {
     // Tx receipt may not be available yet.
@@ -217,10 +419,20 @@ function decodeTx(txReceipt) {
     switch (txReceipt.to) {
         case cpepAddr:
             return decodeCPEPTx(txReceipt);
+        /*
         case cozyAddr:
             return decodeCozyTx(txReceipt);
         case saleAddr:
             return decodeSaleTx(txReceipt);
+        */
+        case cpepRebornAddr:
+            return decodeCPRETx(txReceipt);
+        case cozyRebornAddr:
+            return decodeCozyRebornTx(txReceipt);
+        case saleRebornAddr:
+            return decodeSaleRebornTx(txReceipt);
+        case genesisAddr:
+            return decodeGenesisTx(txReceipt);
         default:
             return null;
     }

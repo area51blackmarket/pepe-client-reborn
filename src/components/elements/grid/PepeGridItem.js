@@ -99,7 +99,7 @@ class PepeGridItem extends React.Component {
         const { classes, pepe, hasWeb3, wallet, breeder } = this.props;
 
         let nameEl;
-        if (pepe.name !== null) {
+        if (pepe.named) {
             nameEl = (<strong>{pepe.name}</strong>)
         } else {
             nameEl = (<span>#{pepe.pepeId}<Typography variant="caption" component="i">(Not named)</Typography></span>)

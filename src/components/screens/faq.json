@@ -1,6 +1,27 @@
 {
   "entries": [
     {
+      "header": "What's new?",
+      "entries": [
+        {
+          "question": "CryptoPepes is back?!",
+          "answer": "<p>As many of you know, CryptoPepes was originally released in 2018 and shut down in the bear market of early 2019. Although much of the world went into a standstill due to Covid in 2020, crypto made a resurgence. DeFi became mainstream, large corporations began to invest in Bitcoin as the new gold standard, and record breaking NFT sales were made. We figured it was only right for CryptoPepes to come back.</p>"
+        },
+        {
+          "question": "Has anything changed?",
+          "answer": "<p>The fundamentals of CryptoPepes have not changed - you can trade and hop pepes on the Ethereum Blockchain. A few changes have been made, such as:</p><ul><li>A new, more efficient contract PepeReborn has been deployed at <a href='https://etherscan.io/address/0xe714485B00E1062C1DfEF1aEE64ad6c8B85987F3' target='_blank'><code>0xe714485B00E1062C1DfEF1aEE64ad6c8B85987F3</code></a>. You should always use this contract instead of the old PepeBase contract at <a href='https://etherscan.io/address/0x84aC94F17622241f313511B629e5E98f489AD6E4' target='_blank'><code>0x84aC94F17622241f313511B629e5E98f489AD6E4</code></a>.</li><li>The ERC-721 standard was not finalized at the time of the initial release. The new contract supports the finalized ERC-721 standard and the ERC-721 Enumerable, Exists, and Metadata extensions.</li><li>The old domain cryptopepes.lol got domain squatted. We're up at <a href='https://cryptopepes.lol/'>cryptopepes.lol</a> now.</li><li>We're up on <a href='https://opensea.io/collection/cryptopepes'>https://opensea.io/collection/cryptopepes</a> as well. Auctioning on OpenSea uses a cheaper, trustful mechanic while auctioning on cryptopepes.lol uses a more expensive, trustless mechanic.</ul>"
+        },
+        {
+          "question": "What happened to my pepes?",
+          "answer": "<p>As pepe lovers, we kept your pepes safe while we were gone. You can see them at the \"My Pepes\" link at the top. They were also returned from auction.</p>"
+        },
+        {
+          "question": "Pepes can be reborn? What?",
+          "answer": "<p>Due to the intricacies of running one contract on top of another, pepes can now have three states. The old contract contains pepes 1-5496, which are currently in the \"dead\" state. The new contract reads from the old contract while they are still dead, including any transfers that might happen in the future. If you interact with the pepe from the new contract, it will automatically transfer the pepe to your new wallet, \"resurrecting\" it in the process. At this point, the state will be stored on the new contract and any transfers made in the old contract will not be reflected in the new contract. Any newly created pepes (id >= 5497) will be considered \"reborn\" and are stored on the new contract from the start</p>"
+        }
+      ]
+    },
+    {
       "header": "Getting started",
       "entries": [
         {
@@ -25,7 +46,7 @@
         },
         {
           "question": "How to send Ether to MetaMask",
-          "answer": "<p>It is easier to buy Ether within MetaMask using Shapeshift or Coinbase, but it is also possible to buy Ether on an exchange and then send it to MetaMask. This video demonstrates how to do that:</p><p><iframe width='100%' height='480' src='https://www.youtube.com/embed/PtdMDtCVck0' frameborder='0' allow='autoplay; encrypted-media'></iframe></p>"
+          "answer": "<p>It is easier to buy Ether within MetaMask using Shapeshift or Coinbase, but it is also possible to buy Ether on an exchange and then send it to MetaMask. This video demonstrates how to do that:</p><p><iframe width='100%' height='480' src='https://www.youtube.com/embed/2DlgVk3U4G0' frameborder='0' allow='autoplay; encrypted-media'></iframe></p>"
         }
       ]
     },

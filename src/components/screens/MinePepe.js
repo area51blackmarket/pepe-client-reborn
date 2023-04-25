@@ -14,32 +14,58 @@ const styles = theme => ({
     },
     claimSection: {
         padding: theme.spacing.unit * 4,
+    },
+    input: {
+        width: "80px",
+        height: "40px",
+        marginRight: "20px",
+        paddingLeft: "8px",
+        paddingRight: "3px",
+        borderRadius: "0.25rem",
+        border: "1px solid #ced4da"
     }
 });
 
-class ConvertDpep extends Component {
+class MinePepe extends Component {
 
     constructor(props) {
         super(props);
 
-        this.state = {buttonClicked: false};
+        this.state = {
+          buttonClicked: false,
+          amount: 1
+        };
+
+        this._handleUpdate = this._handleUpdate.bind(this);
     }
 
     componentDidMount() {
         const {contracts, wallet} = this.props;
-        if(contracts.PepeGrinder) {
+        if(contracts.GenesisActTwo) {
             this.address = Object.keys(wallet)[0];
-            const {callID, thunk} = contracts.PepeGrinder.methods.balanceOf.cacheCall({},this.address);
+            const {callID, thunk} = contracts.GenesisActTwo.methods.mined.cacheCall({});
             this.callID = callID;
             this.props.dispatch(thunk);
         }
     }
 
+    _handleUpdate(e) {
+      if (e.target.validity.valid) {
+        this.setState({ amount: e.target.value });
+      }
+    }
+
     claimPepe = () => {
         const {contracts, wallet} = this.props;
+        const amount = new Web3Utils.BN(this.state.amount);
+        const price = new Web3Utils.BN("100000000000000000");
+        const value = price.mul(amount);
+        console.log("props:", this.props)
 
-        const {txID, thunk} = contracts.PepeGrinder.methods.claimPepe.trackedSend(
-            {from: Object.keys(wallet)[0]});
+        const {txID, thunk} = contracts.GenesisActTwo.methods.birth.trackedSend(
+            {from: Object.keys(wallet)[0], value: value},
+            amount
+        );
 
         this.setState({
             txTrackingId: txID,
@@ -55,28 +81,34 @@ class ConvertDpep extends Component {
     render() {
         const {classes, data} = this.props;
 
-        let dpepBalance = undefined;
+        let mined = undefined;
+        let mineable = 1100;
+        let mineableRemaining = undefined;
         if(data[this.callID] && data[this.callID].value) {
-            dpepBalance = Web3Utils.fromWei(data[this.callID].value[0]);
-            //dpepBalance = 100;
+            mined = data[this.callID].value[0];
+            mineableRemaining = mineable - mined;
         }
         return(
             <div className={classes.root}>
                 <Grid container justify="center">
                     <Grid item xs={12} md={6}>
                         <Typography gutterBottom className={classes.heading} align="center" variant="display3">
-                            Convert DPEP into CPEP
+                            The Birth of a Pepe
                         </Typography>
 
                         <Typography gutterBottom align="center">
-                            You can claim 1 CryptoPepe(CPEP) with 100 Pepe Dust(DPEP). If you have 100 DPEP you can click the button below to claim a CPEP.
+                            You can receive a Reborn CryptoPepe (CPRE) with 0.1 ETH. Only 1100 Gen 0 CPREs can be created.
                         </Typography>
 
                         <Typography variant="subheading" className={classes.claimSection} align="center">
-                            Your DPEP balance: {(dpepBalance !== undefined && dpepBalance !== null) ? dpepBalance : "Loading"} <br />
-                            {dpepBalance >= 100 && (<Button onClick={this.claimPepe} size="large" variant="contained" color="secondary" className={classes.button}>
-                                Claim Pepe
-                            </Button>)}
+                            Pepes Remaining: {(mineableRemaining !== undefined && mineableRemaining !== null) ? mineableRemaining : "Loading"} <br />
+                            {mineableRemaining > 0 && (<>
+                              <br />
+                              <input type="number" value={this.state.amount} onChange={this._handleUpdate} step="any" className={classes.input} min={0}/>
+                              <Button onClick={this.claimPepe} size="large" variant="contained" color="secondary" className={classes.button}>
+                                {this.state.amount > 1 ? "Claim Pepes" : "Claim Pepe"}
+                            </Button>
+                          </>)}
                         </Typography>
 
                         {this.state.buttonClicked && (
@@ -91,21 +123,21 @@ class ConvertDpep extends Component {
 }
 
 
-const styledConvertDpep = withStyles(styles)(ConvertDpep);
-const ConnectedConvertDpep = connect(
+const styledMinePepe = withStyles(styles)(MinePepe);
+const ConnectedMinePepe = connect(
     state => ({
         contracts: state.redapp.contracts,
         data: state.redapp.tracking.calls,
         wallet: state.redapp.tracking.accounts.wallet
     })
-)(styledConvertDpep);
+)(styledMinePepe);
 
 
-const ConnectedConvertDpepWeb3Checked = () => {
-    const dpepConvertCreator = () => <ConnectedConvertDpep/>;
+const ConnectedMinePepeWeb3Checked = () => {
+    const dpepConvertCreator = () => <ConnectedMinePepe/>;
     // web3 needs to be active, and there needs to be an account available.
     return <Web3StatusRedirector dstAddrOk={dpepConvertCreator}/>;
 };
 
 
-export default ConnectedConvertDpepWeb3Checked;
+export default ConnectedMinePepeWeb3Checked;

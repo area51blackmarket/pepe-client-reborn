@@ -133,4 +133,3 @@ export default connect(state => ({
     hasWeb3: state.web3.hasWeb3,
     transactions: state.redapp.tracking.transactions
 }))(styledLiveTxList);
-

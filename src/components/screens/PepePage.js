@@ -28,7 +28,8 @@ const styles = theme => ({
         position: "relative"
     },
     backgroundFill: {
-        opacity: "0.25",
+        //opacity: "0.25",
+        opacity: "0.65",
         position: "absolute",
         zIndex: 1,
         width: "100%",
@@ -286,4 +287,3 @@ const ConnectedPepePage = connect(state => ({
 const PepePage = reloadable(ConnectedPepePage);
 
 export default PepePage;
-

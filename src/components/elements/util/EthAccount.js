@@ -128,14 +128,14 @@ class AccountName extends React.Component {
         if (nextAddress !== this.state.web3usernameAddr) {
 
             if (!nextAddress) {
-                console.log("nextAddress: ", nextAddress);
-                console.log("web3 address: ", this.state.web3usernameAddr);
+                //console.log("nextAddress: ", nextAddress);
+                //console.log("web3 address: ", this.state.web3usernameAddr);
                 this.setState({
                     web3usernameCallId: undefined, web3usernameAddr: nextAddress
                 });
             } else {
 
-                console.log("Checking username!");
+                //console.log("Checking username!");
                 const web3usernameCallId = (!!address) ? PepeBase.methods.addressToUser.cacheCall({}, address) : undefined;
 
                 this.setState({

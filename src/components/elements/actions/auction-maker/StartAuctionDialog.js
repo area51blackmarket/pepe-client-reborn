@@ -83,11 +83,13 @@ class StartAuctionDialog extends React.Component {
     };
 
     handleTxSend = () => {
-        const { PepeBase, auctionAddress, auctionType, hasWeb3, pepe } = this.props;
+        //const { PepeBase, auctionAddress, auctionType, hasWeb3, pepe } = this.props;
+        const { PepeReborn, auctionAddress, auctionType, hasWeb3, pepe } = this.props;
         const { startPrice, endPrice, validStartPrice, validEndPrice, auctionDuration } = this.state;
 
         if (hasWeb3 && validStartPrice && validEndPrice && !!auctionAddress) {
-            const {txID, thunk} = PepeBase.methods.transferAndAuction.trackedSend(
+            //const {txID, thunk} = PepeBase.methods.transferAndAuction.trackedSend(
+            const {txID, thunk} = PepeReborn.methods.transferAndAuction.trackedSend(
                 {from: pepe.master}, pepe.pepeId,
                 auctionAddress, startPrice, endPrice, auctionDuration);
 
@@ -184,5 +186,6 @@ const styledStartAuctionDialog = withStyles(styles)(StartAuctionDialog);
 
 export default connect(state => ({
     hasWeb3: state.web3.hasWeb3,
-    PepeBase: state.redapp.contracts.PepeBase
+    //PepeBase: state.redapp.contracts.PepeBase
+    PepeReborn: state.redapp.contracts.PepeReborn
 }))(styledStartAuctionDialog);

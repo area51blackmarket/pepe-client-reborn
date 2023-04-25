@@ -31,7 +31,8 @@ const styles = theme => ({
         color: theme.palette.primary.contrastText,
     },
     heroButton: {
-        margin: theme.spacing.unit
+        margin: theme.spacing.unit,
+        marginRight: "20px"
     },
     topSectionHalf: {
         padding: 2 * theme.spacing.unit,
@@ -174,18 +175,17 @@ function Home(props) {
                                     and Trade <strong>CryptoPepes</strong>
                                 </Typography>
 
+                                <Button component={AdvancedLink} to="/mine-pepe"
+                                        disableLinkPadding
+                                        variant="raised" color="secondary" size="large" style={{color: 'white'}}
+                                        className={classes.heroButton}>
+                                    Get Yours
+                                </Button>
                                 <Button component={AdvancedLink} to="https://t.me/cryptopepes"
                                         external newTab disableLinkPadding
                                         variant="raised" color="secondary" size="large" style={{color: 'white'}}
                                         className={classes.heroButton}>
                                     Join Telegram
-                                </Button>
-
-                                <Button component={AdvancedLink} to="https://airdrop.cryptopepes.io/"
-                                        external newTab disableLinkPadding
-                                        variant="raised" color="secondary" size="large" style={{color: 'white'}}
-                                        className={classes.heroButton}>
-                                    Airdrop
                                 </Button>
                             </div>
                         </Grid>

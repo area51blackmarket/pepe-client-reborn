@@ -12,7 +12,8 @@ import Moment from 'react-moment';
 import BreederAddMenu from "../actions/breeder/BreederAddMenu";
 import {hasAccount} from "../../../util/web3AccountsUtil";
 import {connect} from "react-redux";
-import {saleAddr, cozyAddr} from "../../../web3Settings";
+//import {saleAddr, cozyAddr} from "../../../web3Settings";
+import {saleRebornAddr, cozyRebornAddr} from "../../../web3Settings";
 
 const styles = (theme) => ({
     root: {
@@ -65,7 +66,7 @@ class PepeSummary extends React.Component {
         let nameEl;
         if (isLoading) {
             nameEl = (<span>Pepe ?</span>)
-        } else if (pepe.name !== null) {
+        } else if (pepe.named) {
             nameEl = (<strong>{pepe.name}</strong>)
         } else {
             nameEl = (<span>Pepe #{pepe.pepeId}<Typography variant="caption"
@@ -108,9 +109,9 @@ class PepeSummary extends React.Component {
                 ? (<span>Never hopped</span>)
                 : (<span>{
                         pepe.can_cozy_again < time
-                            ? "Ready to hop, "
-                            : "Will be ready to hop "
-                    } <Moment unix fromNow interval={0}>{pepe.can_cozy_again}</Moment>
+                            ? "Ready to hop"
+                            : <>"Will be ready to hop " <Moment unix fromNow interval={0}>{pepe.can_cozy_again}</Moment> </>
+                    }
                     </span>)
             );
 

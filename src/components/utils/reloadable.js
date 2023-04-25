@@ -18,8 +18,8 @@ const reloadable = WrappedComponent => {
             const location = this.props.location;
             const nextLocation = nextProps.location;
 
-            console.log(location);
-            console.log(nextLocation);
+            //console.log(location);
+            //console.log(nextLocation);
 
             if (nextLocation.pathname !== location.pathname) {
                 this.setState({ reload: true }, () => this.setState({ reload: false }))

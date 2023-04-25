@@ -2,7 +2,8 @@ import React from 'react';
 import { withStyles } from "@material-ui/core/styles";
 import {AppBar, Hidden, Toolbar} from "@material-ui/core";
 import * as classNames from 'classnames';
-import AdvancedLink from "../elements/util/AdvancedLink";
+//import AdvancedLink from "../elements/util/AdvancedLink";
+import FooterLink from "../elements/util/FooterLink";
 import {Facebook, Instagram, Reddit, Telegram, Twitter} from "mdi-material-ui";
 
 const styles = theme => ({
@@ -49,46 +50,46 @@ class Footer extends React.Component {
                 <AppBar elevation={0} position="static" className={classes.containerBar}>
                     <Toolbar className={classes.bar}>
 
-                        <AdvancedLink to="/my-pepes" className={classes.headerButton}>My Pepes</AdvancedLink>
-                        <AdvancedLink to="/marketplace">Marketplace</AdvancedLink>
-                        <AdvancedLink to="/convert-dpep">Convert DPEP</AdvancedLink>
-                        <AdvancedLink to="/mining-stats">Mining Stats</AdvancedLink>
+                        <FooterLink to="/my-pepes" className={classes.headerButton}>My Pepes</FooterLink>
+                        <FooterLink to="/marketplace">Marketplace</FooterLink>
+                        <FooterLink to="/convert-dpep">Convert DPEP</FooterLink>
+                        <FooterLink to="/mining-stats">Mining Stats</FooterLink>
 
                         <Hidden smDown>
-                            <AdvancedLink to="/faq">FAQ</AdvancedLink>
-                            <AdvancedLink to="/about">About us</AdvancedLink>
+                            <FooterLink to="/faq">FAQ</FooterLink>
+                            <FooterLink to="/about">About us</FooterLink>
                         </Hidden>
                     </Toolbar>
                     <Hidden mdUp>
                         <Toolbar className={classes.bar}>
-                            <AdvancedLink to="/faq">FAQ</AdvancedLink>
-                            <AdvancedLink to="/about">About us</AdvancedLink>
+                            <FooterLink to="/faq">FAQ</FooterLink>
+                            <FooterLink to="/about">About us</FooterLink>
                         </Toolbar>
                     </Hidden>
 
                     <Toolbar className={classNames(classes.bar, classes.socialBar)}>
-                        <AdvancedLink external to="https://twitter.com/cryptopepes"><Twitter className={classes.socialIcon}/></AdvancedLink>
-                        <AdvancedLink external to="https://reddit.com/r/cryptopepe"><Reddit className={classes.socialIcon}/></AdvancedLink>
-                        <AdvancedLink external to="https://t.me/cryptopepes"><Telegram className={classes.socialIcon}/></AdvancedLink>
-                        <AdvancedLink external to="https://www.facebook.com/cryptopepes/"><Facebook className={classes.socialIcon}/></AdvancedLink>
-                        <AdvancedLink external to="https://www.instagram.com/cryptopepes/"><Instagram className={classes.socialIcon}/></AdvancedLink>
+                        <FooterLink external to="https://twitter.com/cryptopepes"><Twitter className={classes.socialIcon}/></FooterLink>
+                        <FooterLink external to="https://reddit.com/r/cryptopepe"><Reddit className={classes.socialIcon}/></FooterLink>
+                        <FooterLink external to="https://t.me/cryptopepes"><Telegram className={classes.socialIcon}/></FooterLink>
+                        <FooterLink external to="https://www.facebook.com/cryptopepes/"><Facebook className={classes.socialIcon}/></FooterLink>
+                        <FooterLink external to="https://www.instagram.com/cryptopepes/"><Instagram className={classes.socialIcon}/></FooterLink>
                     </Toolbar>
 
                     <Toolbar className={classes.bar}>
 
-                        {/*<AdvancedLink to="/terms" variant="caption">Terms of use</AdvancedLink>*/}
-                        {/*<AdvancedLink to="/privacy" variant="caption">Privacy policy</AdvancedLink>*/}
+                        {/*<FooterLink to="/terms" variant="caption">Terms of use</FooterLink>*/}
+                        {/*<FooterLink to="/privacy" variant="caption">Privacy policy</FooterLink>*/}
 
                         <Hidden smDown>
-                            {/*<AdvancedLink variant="caption">|</AdvancedLink>*/}
+                            {/*<FooterLink variant="caption">|</FooterLink>*/}
 
-                            <AdvancedLink to="/" className={classes.copyrightText} variant="caption">Copyright &copy; 2018 CryptoPepes.io</AdvancedLink>
+                            <FooterLink to="/" className={classes.copyrightText} variant="caption">Copyright &copy; 2023 CryptoPepes.lol</FooterLink>
                         </Hidden>
                     </Toolbar>
 
                     <Hidden mdUp>
                         <Toolbar className={classes.bar}>
-                            <AdvancedLink to="/" className={classes.copyrightText} variant="caption">Copyright &copy; 2018 CryptoPepes.io</AdvancedLink>
+                            <FooterLink to="/" className={classes.copyrightText} variant="caption">Copyright &copy; 2023 CryptoPepes.lol</FooterLink>
                         </Toolbar>
                     </Hidden>
 

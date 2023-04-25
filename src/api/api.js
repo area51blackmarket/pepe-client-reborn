@@ -9,9 +9,7 @@ class PepeAPI {
     //Dev:
     //static apiRoot = "http://localhost:3000";
     //Prod main:
-    static apiRoot = "https://cryptopepes.io";
-    //Prod dev:
-    // static apiRoot = "https://dev.cryptopepes.io";
+    static apiRoot = "https://api.cryptopepes.lol";
 
     /**
      * Execute a query, asynchronously. Parsed results are returned in a Promise.
@@ -24,7 +22,7 @@ class PepeAPI {
 
         // console.log("Searching for pepes, query: "+queryStr);
 
-        let resp = await request(PepeAPI.apiRoot + "/api/search" + queryStr);
+        let resp = await request(PepeAPI.apiRoot + "/search" + queryStr);
 
         try {
             return PepeAPI.parseQueryJSON(resp)
@@ -42,7 +40,7 @@ class PepeAPI {
     }
 
     static async getPepeData(pepeId="0") {
-        const resp = await request(PepeAPI.apiRoot+"/api/getPepe/"+pepeId);
+        const resp = await request(PepeAPI.apiRoot+"/getPepe/"+pepeId);
         // console.log("retrieved pepe data: ", resp);
         return PepeAPI.parsePepeJSON(resp)
     }
@@ -54,14 +52,16 @@ class PepeAPI {
     }
 
     static getPepeSvgSrc(pepeId="0") {
-        return PepeAPI.apiRoot+"/api/getPepeSVG/"+pepeId;
+        //return PepeAPI.apiRoot+"/api/getPepeSVG/"+pepeId;
+        //return 'https://storage.googleapis.com/pepe-img/pepe_'+pepeId+'.svg';
+        return `https://pepes.cryptopepes.lol/reborn/${pepeId}.svg`
     }
 
     static async getUserData(address=undefined) {
         if (!address || !isValidAccountAddress(address)) {
             return undefined;
         } else {
-            const resp = await request(PepeAPI.apiRoot+"/api/getUser/"+address.toLowerCase());
+            const resp = await request(PepeAPI.apiRoot+"/getUser/"+address.toLowerCase());
             return PepeAPI.parseUserJSON(resp);
         }
     }

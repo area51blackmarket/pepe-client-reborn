@@ -22,7 +22,7 @@ class QueryData {
 }
 
 class AuctionData {
-    
+
     constructor({beginPrice="0", endPrice="0", beginTime=0, endTime=0, seller=undefined}) {
         this.beginPrice = beginPrice;
         this.endPrice = endPrice;
@@ -109,6 +109,7 @@ class PepeData {
     constructor({
                     pepeId=0,
                     name="",
+                    named=false,
                     cool_down_index=0,
                     can_cozy_again=0,
                     gen=0,
@@ -161,6 +162,7 @@ class PepeData {
         } else {
             this.name = name;
         }
+        this.named = named;
         this.cool_down_index = cool_down_index;
         this.can_cozy_again = can_cozy_again;
         this.gen = gen;

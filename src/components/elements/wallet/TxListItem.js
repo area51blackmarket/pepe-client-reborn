@@ -260,6 +260,18 @@ class TxListItem extends Component {
                 </ListItem>
             </List>
         ),
+        "birth":  (txInfo, classes) => (
+            <List component="div" disablePadding dense>
+                <ListSubheader className={classes.detailList}>from:</ListSubheader>
+                <ListItem className={classes.detailList}>
+                    <EthAccount address={txInfo.from} small/>
+                </ListItem>
+                <ListSubheader className={classes.detailList}>amount:</ListSubheader>
+                <ListItem className={classes.detailList}>
+                    <p>{txInfo.amount}</p>
+                </ListItem>
+            </List>
+        ),
     };
 
     getElementForTxInfo = (txInfo, classes) => {
@@ -280,7 +292,8 @@ class TxListItem extends Component {
         "buyCozy": (txInfo) => `Buy cozy-time with pepe #${txInfo.pepeId} for pepe #${txInfo.cozyCandidate}`,
         "startSaleAuction": (txInfo) => `Start sale auction: sell pepe #${txInfo.pepeId}`,
         "startCozyAuction": (txInfo) => `Start cozy auction: hop pepe #${txInfo.pepeId}`,
-        "savePepe": (txInfo) => `Retrieve pepe #${txInfo.pepeId} from expired ${txInfo.auctionType} auction`
+        "savePepe": (txInfo) => `Retrieve pepe #${txInfo.pepeId} from expired ${txInfo.auctionType} auction`,
+        "birth": (txInfo) => `Birth ${txInfo.amount} pepes`
     };
 
     getTitleForTxInfo = (txInfo) => {
@@ -292,7 +305,7 @@ class TxListItem extends Component {
 
     render() {
         const {status, confirmations, txHash, decodedTx, onRemove, classes} = this.props;
-        
+
         let statusText = "";
         let statusIcon = null;
         switch (status) {

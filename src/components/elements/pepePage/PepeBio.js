@@ -15,7 +15,7 @@ const PepeBio = (props) => {
     let nameEl;
     if (isLoading) {
         nameEl = (<span>Pepe ?</span>)
-    } else if (pepe.name !== null) {
+    } else if (pepe.named) {
         nameEl = (<strong>{pepe.name}</strong>)
     } else {
         nameEl = (<span>Pepe #{pepe.pepeId}</span>)

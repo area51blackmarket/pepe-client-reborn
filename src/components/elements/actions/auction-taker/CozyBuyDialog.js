@@ -17,8 +17,8 @@ import PepeGridItem from "../../grid/PepeGridItem";
 import {withStyles} from "@material-ui/core/styles/index";
 import TxDialog from "../TxDialog";
 import ReporterContent from "../../reporting/ReporterContent";
-import {cozyAddr} from "../../../../web3Settings";
-
+//import {cozyAddr} from "../../../../web3Settings";
+import {cozyRebornAddr} from "../../../../web3Settings";
 
 const styles = (theme) => ({
     pepeGridContainer: {
@@ -42,7 +42,8 @@ class CozyBuyDialogInner extends BidAuctionDialog {
 
 
     handleTxSend = () => {
-        const { PepeBase, auctionAddress, motherPepe, fatherPepe, cozyCandidateAsFather, wallet, hasWeb3, affiliate } = this.props;
+        //const { PepeBase, auctionAddress, motherPepe, fatherPepe, cozyCandidateAsFather, wallet, hasWeb3, affiliate } = this.props;
+        const { PepeReborn, auctionAddress, motherPepe, fatherPepe, cozyCandidateAsFather, wallet, hasWeb3, affiliate } = this.props;
         const { bidPrice, validBidPrice } = this.state;
 
         if (!hasWeb3) {
@@ -70,7 +71,8 @@ class CozyBuyDialogInner extends BidAuctionDialog {
             let call;
             //if affiliate is set
             if (affiliate && Web3Utils.isAddress(affiliate)) {
-                call = PepeBase.methods.approveAndBuyAffiliated.trackedSend(
+                //call = PepeBase.methods.approveAndBuyAffiliated.trackedSend(
+                call = PepeReborn.methods.approveAndBuyAffiliated.trackedSend(
                     {from: buyerAccount, value: bidPrice},
                     auctionSubject.pepeId,
                     auctionAddress,
@@ -79,7 +81,8 @@ class CozyBuyDialogInner extends BidAuctionDialog {
                     affiliate
                 );
             } else {
-                call = PepeBase.methods.approveAndBuy.trackedSend(
+                //call = PepeBase.methods.approveAndBuy.trackedSend(
+                call = PepeReborn.methods.approveAndBuy.trackedSend(
                     {from: buyerAccount, value: bidPrice},
                     auctionSubject.pepeId,
                     auctionAddress,
@@ -232,8 +235,9 @@ const styledCozyBuyDialog = withStyles(styles)(CozyBuyDialogInner);
 const CozyBuyDialog = connect(state => ({
     hasWeb3: state.web3.hasWeb3,
     wallet: state.redapp.tracking.accounts.wallet,
-    auctionAddress: cozyAddr,
-    PepeBase: state.redapp.contracts.PepeBase,
+    auctionAddress: cozyRebornAddr,
+    //PepeBase: state.redapp.contracts.PepeBase,
+    PepeReborn: state.redapp.contracts.PepeReborn,
     affiliate: state.affiliate.affiliate
 }))(styledCozyBuyDialog);
 

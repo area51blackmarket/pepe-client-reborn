@@ -40,7 +40,7 @@ class PepeGridInfinite extends Component {
     }
 
     async loadMoreContent() {
-        console.log("Loading pepes...");
+        //console.log("Loading pepes...");
         const oldPepes = [];
         let q = this.props.getQuery();
 
@@ -55,7 +55,7 @@ class PepeGridInfinite extends Component {
             //Query identities match, are we already loading?
             // If yes, this is the same exact query, and we shouldn't call the api twice.
             if (this.state.loading) {
-                console.log("Avoiding unnecessary double API call.");
+                //console.log("Avoiding unnecessary double API call.");
                 return;
             }
 

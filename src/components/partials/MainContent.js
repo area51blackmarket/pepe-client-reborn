@@ -5,6 +5,7 @@ import Portfolio from "../screens/Portfolio";
 import Home from "../screens/Home";
 import ConvertDpep from "../screens/ConvertDpep";
 import MiningStats from "../screens/MiningStats";
+import MinePepe from "../screens/MinePepe";
 import Market from "../screens/Market";
 import FaqPage from "../screens/FaqPage";
 import About from "../screens/About";
@@ -24,7 +25,7 @@ const MainContent = () => {
                 <Route exact path='/' component={Home}/>
                 <Route exact strict={false} path='/pepe/:pepeId' render={({match, ...remainingProps}) => {
                     const pepeId = match.params["pepeId"];
-                    console.log("Loading pepe page for: "+pepeId);
+                    //console.log("Loading pepe page for: "+pepeId);
                     return (<PepePage pepeId={pepeId} {...remainingProps}/>)
                 }}/>
                 <Route exact strict={false} path='/my-pepes'>
@@ -33,12 +34,13 @@ const MainContent = () => {
                 </Route>
                 <Route exact strict={false} path='/portfolio/:portfolioAddress' render={({match, ...remainingProps}) => {
                     const portfolioAddress = match.params["portfolioAddress"];
-                    console.log("Loading portfolio for: "+portfolioAddress);
+                    //console.log("Loading portfolio for: "+portfolioAddress);
                     return (<Portfolio portfolioAddress={portfolioAddress} {...remainingProps}/>)
                 }}/>
 
                 <Route exact strict={false} path='/convert-dpep' component={ConvertDpep}/>
                 <Route exact strict={false} path='/mining-stats' component={MiningStats}/>
+                <Route exact strict={false} path='/mine-pepe' component={MinePepe}/>
                 <Route exact strict={false} path='/marketplace' component={Market}/>
                 <Route exact strict={false} path='/faq' component={FaqPage}/>
                 <Route exact strict={false} path='/about' component={About}/>

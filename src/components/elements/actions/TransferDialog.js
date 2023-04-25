@@ -42,10 +42,12 @@ class TransferDialog extends React.Component {
     };
 
     handleTransferSend = () => {
-        const { PepeBase, hasWeb3, pepe } = this.props;
+        //const { PepeBase, hasWeb3, pepe } = this.props;
+        const { PepeReborn, hasWeb3, pepe } = this.props;
 
         if (hasWeb3) {
-            const {txID, thunk} = PepeBase.methods.transfer.trackedSend(
+            //const {txID, thunk} = PepeBase.methods.transfer.trackedSend(
+            const {txID, thunk} = PepeReborn.methods.transfer.trackedSend(
                 { from: pepe.master }, this.state.transferAddress, pepe.pepeId);
 
             this.setState({
@@ -112,6 +114,6 @@ const styledTransferDialog = withStyles(styles)(TransferDialog);
 
 export default connect(state => ({
     hasWeb3: state.web3.hasWeb3,
-    PepeBase: state.redapp.contracts.PepeBase
+    //PepeBase: state.redapp.contracts.PepeBase
+    PepeReborn: state.redapp.contracts.PepeReborn
 }))(styledTransferDialog);
-
